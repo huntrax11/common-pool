@@ -6,7 +6,7 @@ require 'rake/packagetask'
 
 spec = Gem::Specification.new do |s| 
   s.name = "common-pool"
-  s.version = "0.3.1"
+  s.version = "0.3.2"
   s.author = "Herryanto Siatono"
   s.email = "herryanto@pluitsolutions.com"
   s.homepage = "http://common-pool.rubyforge.net/"
@@ -17,8 +17,6 @@ spec = Gem::Specification.new do |s|
   s.autorequire = "name"
   s.test_files = FileList["{test}/**/*test.rb"].to_a
   s.has_rdoc = true
-  s.extra_rdoc_files = ["README", "CHANGELOG"]
-  s.add_dependency("hpricot", ">= 0.4")
   s.extra_rdoc_files = ["README", "CHANGELOG"]
 end
  
