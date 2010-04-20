@@ -95,7 +95,7 @@ module CommonPool
   class PoolDataSource
     # Override to create an object to be stored in the pool.
     def create_object
-      raise CommonPoolError, "Overwrite this method to create an object to be stored in the pool."
+      raise NotImplementedError, "Overwrite this method to create an object to be stored in the pool."
     end
     
     # Override to check the validity of your idle object, called when idle object eviction stread.
