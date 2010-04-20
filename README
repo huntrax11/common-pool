@@ -33,6 +33,11 @@ Overwrite <code>CommonPool::PoolDataSource</code> to create object to be returne
     def valid?(object)
       true
     end
+    
+    # Override to be notified when an object is removed from the pool
+    def destroy_object(obj)
+      nil
+    end
   end
   
   # Create a new object pool
@@ -68,5 +73,4 @@ http://github.com/jugend/common-pool/tree/master
 
 == Links
 * http://www.pluitsolutions.com/common-pool
-  
   

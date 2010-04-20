@@ -95,7 +95,12 @@ module CommonPool
   class PoolDataSource
     # Override to create an object to be stored in the pool.
     def create_object
-      raise NotImplementedError, "Overwrite this method to create an object to be stored in the pool."
+      raise NotImplementedError, "Override this method to create an object to be stored in the pool."
+    end
+    
+    # Override to be notified when an object is removed from the pool
+    def destroy_object(obj)
+      nil
     end
     
     # Override to check the validity of your idle object, called when idle object eviction stread.
@@ -178,6 +183,7 @@ module CommonPool
       @mutex.synchronize {
         logger.debug("* Invalidate #{object}") if logger
         @active_list.delete(object.__id__)
+        self.data_source.destroy_object(object)
         nil
       }
     end
@@ -185,6 +191,14 @@ module CommonPool
     # Clear object pool, set the idle list and used list to empty.
     def clear()
       @mutex.synchronize {
+        @idle_list.each do |object|
+          self.data_source.destroy_object(object)
+        end
+        
+        @active_list.each do |object|
+          self.data_source.destroy_object(object)
+        end
+        
         @idle_list = []
         @active_list = {}
       }
@@ -284,6 +298,7 @@ module CommonPool
     def add_to_idle_list(object)
       @mutex.synchronize {
         if (@config.max_idle > 0) and (@idle_list.size >= @config.max_idle)
+          self.data_source.destroy_object(object)
           logger.debug("Not returned, max idle #{@config.max_idle} reached") if logger
           return
         end
