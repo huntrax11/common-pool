@@ -36,17 +36,17 @@ module CommonPool
     # Maximum number of idle objects in the pool. Default: 8.
     attr_accessor :max_idle
     
-    # Maximum idle time in seconds, before an object can be evicted. Default: 1800.
+    # Maximum idle time in seconds before an object can be evicted. Default: 1800. (30 minutes)
     attr_accessor :max_idle_time    
    
     # Maximum number of active objects in the pool. Default: 8.
     attr_accessor :max_active
     
-    # Request timeout when creating object for the pool, timeout in seconds. Default: 60.
+    # Timeout in seconds when creating an object for the pool. Default: 60.
     # If set to 0 or less, there will be no timeout.
     attr_accessor :timeout
     
-    # Request timeout when validation idle object in the pool, timeout in seconds. Default: 30.
+    # Timeout in seconds when validating an idle object in the pool. Default: 30.
     # If set to 0 or less, there will be no timeout.
     attr_accessor :validation_timeout
     
@@ -58,11 +58,12 @@ module CommonPool
     # If set to 0 or less, the eviction thread will not run.
     attr_accessor :idle_check_interval
    
-    # Assign a logger, to log pool debug/info messages, used this for debugging purpose.
+    # A logger to which debug/info messages about the pool will be emitted via #debug.
+    # If nil, nothing will be logged.
     attr_accessor :logger    
     
-    # The data source object to be extended, code>create_object</code> method need to be 
-    # overridden
+    # The pool's data source object, which must define a <code>create_object</code> method.
+    # This attribute does not typically need to be set explicitly. It is set by ObjectPool#initialize.
     attr_accessor :data_source
     
     # Initilize configuration with default settings.
