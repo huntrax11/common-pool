@@ -27,11 +27,12 @@ Rake::GemPackageTask.new(spec) do |pkg|
 end
 
 desc "Create the RDOC html files"
-rd = Rake::RDocTask.new("rdoc") { |rdoc|
+rd = Rake::RDocTask.new("rdoc") do |rdoc|
   rdoc.rdoc_dir = 'doc'
   rdoc.title    = "common-pool"
   rdoc.options << '--line-numbers' << '--inline-source' << '--main' << 'README'
   rdoc.rdoc_files.include('README', 'CHANGELOG')
   rdoc.rdoc_files.include('lib/**/*.rb')
   rdoc.rdoc_files.include('test/**/*.rb')
-}
+end
+
