@@ -21,6 +21,7 @@
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #++
 
+require 'test/unit'
 require File.dirname(__FILE__) + '/../lib/common_pool'
 
 class CommonPoolTest < Test::Unit::TestCase

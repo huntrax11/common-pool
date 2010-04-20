@@ -36,3 +36,6 @@ rd = Rake::RDocTask.new("rdoc") do |rdoc|
   rdoc.rdoc_files.include('test/**/*.rb')
 end
 
+Rake::TestTask.new do |t|
+  t.test_files = FileList['test/*.rb']
+end
