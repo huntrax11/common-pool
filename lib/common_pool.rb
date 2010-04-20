@@ -320,7 +320,7 @@ module CommonPool
           if (within_max_idle_time?(result[0]) && valid_idle_object?(result[1]))
             checked_obj.push(result)
           else 
-            invalidate(result[1])
+            invalidate_object(result[1])
           end
         else
           logger.debug("No more object available.") if logger

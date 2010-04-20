@@ -139,7 +139,28 @@ class CommonPoolTest < Test::Unit::TestCase
     # throw away no 3
     pool.return_object(c)
     assert_equal 2, pool.idle_list.size
-  end  
+  end
+  
+  def test_invalidate
+    pool = create_pool do |config|
+      config.min_idle = 1
+      config.max_idle = 1
+      config.max_idle_time = 1
+      config.idle_check_interval = 1
+    end
+    
+    a = pool.borrow_object
+    b = pool.borrow_object
+    c = pool.borrow_object
+    d = pool.borrow_object
+    
+    pool.return_object(a)
+    pool.return_object(b)
+    
+    sleep 2
+    
+    assert_equal 1, pool.idle_list.size
+  end
   
 #  def test_run
 #    pool = create_pool do |config|
