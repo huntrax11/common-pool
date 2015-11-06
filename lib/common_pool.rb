@@ -174,6 +174,7 @@ module CommonPool
       if @active_list.delete(object.__id__)
         add_to_idle_list(object)
       else
+        self.data_source.destroy_object(object)
         logger.debug("Session #{object} not returned, coz has been invalidated from used list.") if logger
       end
     end
@@ -192,11 +193,7 @@ module CommonPool
     def clear()
       @mutex.synchronize {
         @idle_list.each do |object|
-          self.data_source.destroy_object(object)
-        end
-
-        @active_list.each do |object|
-          self.data_source.destroy_object(object)
+          self.data_source.destroy_object(object[1])
         end
 
         @idle_list = []
